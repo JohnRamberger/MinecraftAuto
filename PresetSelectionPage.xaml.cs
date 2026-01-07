@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -14,8 +15,8 @@ public partial class PresetSelectionPage : Page
         InitializeComponent();
         _onUnbind = onUnbind;
 
-        // Use the enum for presets
-        PresetComboBox.ItemsSource = Enum.GetValues(typeof(AutoClickerPreset));
+        // Use the new class for presets
+        PresetComboBox.ItemsSource = AutoClickerPreset.All;
         PresetComboBox.SelectedIndex = 0;
 
         BoundMessageTextBlock.Text = $"Bound to window: {windowTitle} (PID: {pid})";
