@@ -1,9 +1,10 @@
 <Page x:Class="MinecraftAuto.PresetSelectionPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:presets="clr-namespace:MinecraftAuto.Presets"
       Title="Select Auto-Clicker Preset">
-    <Grid>
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="300">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="350">
             <TextBlock x:Name="BoundMessageTextBlock"
                        Text=""
                        FontSize="14"
@@ -13,8 +14,16 @@
                        TextWrapping="Wrap"
                        HorizontalAlignment="Stretch"/>
             <TextBlock Text="Select Auto-Clicker Preset:" FontSize="18" Margin="0,0,0,10"/>
-            <ComboBox x:Name="PresetComboBox" FontSize="16" Margin="0,0,0,20"/>
-            <Button Content="Unbind" Click="Unbind_Click" FontSize="16"/>
+            <ComboBox x:Name="PresetComboBox"
+                      FontSize="16"
+                      Margin="0,0,0,20"
+                      SelectionChanged="PresetComboBox_SelectionChanged"/>
+            <ContentControl x:Name="PresetSettingsHost" Margin="0,0,0,20"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+                <Button x:Name="StartStopButton" Content="Start" Click="StartStopButton_Click" FontSize="16" Width="120" Margin="0,0,10,0"/>
+                <Button Content="Unbind" Click="Unbind_Click" FontSize="16" Width="120"/>
+            </StackPanel>
+            <TextBlock Text="Keybind: Toggle Auto-Clicker (F8)" FontSize="12" Foreground="Gray" Margin="0,10,0,0" TextAlignment="Center"/>
         </StackPanel>
-    </Grid>
+    </ScrollViewer>
 </Page>

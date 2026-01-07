@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       Title="Bind to Window">
     <Grid>
-        <TextBlock Text="Press F8 to bind to a window..." 
+        <TextBlock Text="Press F9 to bind to a window..." 
                    VerticalAlignment="Center" HorizontalAlignment="Center"
                    FontSize="24"/>
     </Grid>

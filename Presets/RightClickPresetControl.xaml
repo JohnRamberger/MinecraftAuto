@@ -1,0 +1,10 @@
+<UserControl x:Class="MinecraftAuto.Presets.RightClickPresetControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Height="Auto" Width="Auto">
+    <StackPanel>
+        <TextBlock Text="Right Click Delay (ms)" FontWeight="Bold" Margin="0,0,0,10"/>
+        <Slider x:Name="DelaySlider" Minimum="1" Maximum="500" Value="{Binding Delay}" TickFrequency="1" IsSnapToTickEnabled="True"/>
+        <TextBlock Text="{Binding Delay, StringFormat='Delay: {0} ms'}" Margin="0,10,0,0"/>
+    </StackPanel>
+</UserControl>
