@@ -64,7 +64,7 @@ public partial class MainWindow : Window
     private void OnBoundToWindow(IntPtr windowHandle, string windowTitle, uint pid)
     {
         _boundWindow = windowHandle;
-        MainFrame.Navigate(new PresetSelectionPage(OnUnbind));
+        MainFrame.Navigate(new PresetSelectionPage(OnUnbind, windowTitle, pid));
     }
 
     // Callback to unbind and return to binding page
@@ -83,7 +83,6 @@ public partial class MainWindow : Window
             GetWindowThreadProcessId(fgWindow, out uint pid);
             var proc = Process.GetProcessById((int)pid);
             _logger.LogInformation("Bound to window: {Title} (PID: {Pid})", proc.MainWindowTitle, pid);
-            MessageBox.Show($"Bound to window: {proc.MainWindowTitle} (PID: {pid})");
             // Store fgWindow as your target handle here
 
             // Navigate to preset selection page

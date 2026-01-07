@@ -9,20 +9,16 @@ public partial class PresetSelectionPage : Page
 {
     private readonly Action _onUnbind;
 
-    public PresetSelectionPage(Action onUnbind)
+    public PresetSelectionPage(Action onUnbind, string windowTitle, uint pid)
     {
         InitializeComponent();
         _onUnbind = onUnbind;
 
-        // Example presets
-        PresetComboBox.ItemsSource = new List<string>
-        {
-            "Fast Click (10 CPS)",
-            "Ultra Fast (20 CPS)",
-            "Slow (3 CPS)",
-            "Custom..."
-        };
+        // Use the enum for presets
+        PresetComboBox.ItemsSource = Enum.GetValues(typeof(AutoClickerPreset));
         PresetComboBox.SelectedIndex = 0;
+
+        BoundMessageTextBlock.Text = $"Bound to window: {windowTitle} (PID: {pid})";
     }
 
     private void Unbind_Click(object sender, RoutedEventArgs e)

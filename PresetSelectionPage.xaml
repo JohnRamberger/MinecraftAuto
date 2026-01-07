@@ -4,6 +4,14 @@
       Title="Select Auto-Clicker Preset">
     <Grid>
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="300">
+            <TextBlock x:Name="BoundMessageTextBlock"
+                       Text=""
+                       FontSize="14"
+                       Foreground="DarkGreen"
+                       Margin="0,0,0,20"
+                       TextAlignment="Center"
+                       TextWrapping="Wrap"
+                       HorizontalAlignment="Stretch"/>
             <TextBlock Text="Select Auto-Clicker Preset:" FontSize="18" Margin="0,0,0,10"/>
             <ComboBox x:Name="PresetComboBox" FontSize="16" Margin="0,0,0,20"/>
             <Button Content="Unbind" Click="Unbind_Click" FontSize="16"/>
