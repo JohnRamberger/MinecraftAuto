@@ -1,0 +1,45 @@
+# Build results
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio 2022 settings
+.vs/
+.vscode/
+
+# NuGet packages
+*.nupkg
+# The packages folder can be ignored if you use PackageReference
+packages/
+# Uncomment if you have a packages.config file and want to ignore packages folder
+# !packages/*.config
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# OS generated files
+.DS_Store
+*.DS_Store
+Icon?
+._*
+
+# Rider IDE files
+.idea/
+
+# Dotnet-specific
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Publish output
+publish/
+out/
+
+# Others
+*.log
