@@ -14,7 +14,7 @@ public class ConcretePreset : AutoClickerPresetBase
     public ConcretePreset(IntPtr hWnd) : base(
         hWnd,
         "Concrete",
-        "Clicks left and right mouse button sequentially. Adjustable delays and offset.")
+        "Used to make concrete in a concrete maker. Mines and Places concrete simultaneously.")
     {
 
     }
@@ -26,55 +26,40 @@ public class ConcretePreset : AutoClickerPresetBase
 
     public override void Reset()
     {
-        //var position = GetCursorPosition();
+        var position = GetCursorPosition();
 
-        //IntPtr lParam = (IntPtr)((position.Y << 16) | (position.X & 0xFFFF));
+        IntPtr lParam = (IntPtr)((position.Y << 16) | (position.X & 0xFFFF));
 
-        //// Left up
-        //SendMessage(TargetWindowHandle, NativeMethods.WM_LBUTTONUP, (IntPtr)1, lParam);
+        // Left up
+        SendMessage(TargetWindowHandle, NativeMethods.WM_LBUTTONUP, (IntPtr)1, lParam);
 
-        //// Right up
-        //SendMessage(TargetWindowHandle, NativeMethods.WM_RBUTTONUP, (IntPtr)1, lParam);
+        // Right up
+        SendMessage(TargetWindowHandle, NativeMethods.WM_RBUTTONUP, (IntPtr)1, lParam);
 
-        //done = false;
+        done = false;
     }
 
     public override async void Sequence()
     {
-        //Debug.WriteLine($"done = {done}");
-        //if (done)
-        //{
-        //    return;
-        //}
-
-        //var position = GetCursorPosition();
-
-        //IntPtr lParam = (IntPtr)((position.Y << 16) | (position.X & 0xFFFF));
-
-        //// Right down
-        //SendMessage(TargetWindowHandle, NativeMethods.WM_RBUTTONDOWN, (IntPtr)1, lParam);
-
-        //Task.Delay(500).Wait();
-
-        //// Left down
-        //SendMessage(TargetWindowHandle, NativeMethods.WM_LBUTTONDOWN, (IntPtr)1, lParam);
-
-        //done = true;
+        Debug.WriteLine($"done = {done}");
+        if (done)
+        {
+            return;
+        }
 
         var position = GetCursorPosition();
 
         IntPtr lParam = (IntPtr)((position.Y << 16) | (position.X & 0xFFFF));
 
+        // Right down
         SendMessage(TargetWindowHandle, NativeMethods.WM_RBUTTONDOWN, (IntPtr)1, lParam);
-        SendMessage(TargetWindowHandle, NativeMethods.WM_RBUTTONUP, IntPtr.Zero, lParam);
 
-        Task.Delay(50).Wait();
+        Task.Delay(500).Wait();
 
+        // Left down
         SendMessage(TargetWindowHandle, NativeMethods.WM_LBUTTONDOWN, (IntPtr)1, lParam);
 
-        Task.Delay(300).Wait();
-
-        SendMessage(TargetWindowHandle, NativeMethods.WM_LBUTTONUP, IntPtr.Zero, lParam);
+        done = true;
     }
 }
 

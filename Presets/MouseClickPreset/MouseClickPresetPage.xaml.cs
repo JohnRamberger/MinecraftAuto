@@ -5,9 +5,9 @@ namespace MinecraftAuto.Presets;
 
 public partial class MouseClickPresetPage : Page
 {
-    private readonly ConcretePreset _preset;
+    private readonly MouseClickPreset _preset;
 
-    public MouseClickPresetPage(ConcretePreset preset)
+    public MouseClickPresetPage(MouseClickPreset preset)
     {
         InitializeComponent();
         _preset = preset;
