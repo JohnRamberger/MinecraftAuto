@@ -1,4 +1,4 @@
-<Page x:Class="MinecraftAuto.Presets.BothClickPresetPage"
+<Page x:Class="MinecraftAuto.Presets.MouseClickPresetPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       Title="Both (Sequential) Preset">
@@ -14,7 +14,5 @@
         <TextBlock Text="Offset (ms)" FontWeight="Bold" Margin="0,20,0,10"/>
         <Slider x:Name="OffsetSlider" Minimum="0" Maximum="100" Value="{Binding Offset}" TickFrequency="1" IsSnapToTickEnabled="True"/>
         <TextBlock Text="{Binding Offset, StringFormat='Offset: {0} ms'}" Margin="0,10,0,0"/>
-
-        <Button Content="Apply" Click="ApplyButton_Click" Margin="0,20,0,0"/>
     </StackPanel>
 </Page>

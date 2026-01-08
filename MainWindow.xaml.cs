@@ -91,7 +91,7 @@ public partial class MainWindow : Window
     private void OnBoundToWindow(IntPtr windowHandle, string windowTitle, uint pid)
     {
         _boundWindow = windowHandle;
-        _presetSelectionPage = new PresetSelectionPage(OnUnbind, windowTitle, pid);
+        _presetSelectionPage = new PresetSelectionPage(OnUnbind, windowTitle, pid, windowHandle);
         MainFrame.Navigate(_presetSelectionPage);
     }
 

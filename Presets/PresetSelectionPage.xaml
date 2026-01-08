@@ -23,7 +23,7 @@
                 <Button x:Name="StartStopButton" Content="Start" Click="StartStopButton_Click" FontSize="16" Width="120" Margin="0,0,10,0"/>
                 <Button Content="Unbind" Click="Unbind_Click" FontSize="16" Width="120"/>
             </StackPanel>
-            <TextBlock Text="Keybind: Toggle Auto-Clicker (F8)" FontSize="12" Foreground="Gray" Margin="0,10,0,0" TextAlignment="Center"/>
+            <TextBlock Text="Keybind: Toggle Auto-Clicker (F8), Bind (F9)" FontSize="12" Foreground="Gray" Margin="0,10,0,0" TextAlignment="Center"/>
         </StackPanel>
     </ScrollViewer>
 </Page>

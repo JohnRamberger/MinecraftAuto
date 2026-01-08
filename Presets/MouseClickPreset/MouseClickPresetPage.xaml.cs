@@ -3,11 +3,11 @@ using System.Windows.Navigation;
 
 namespace MinecraftAuto.Presets;
 
-public partial class LeftClickPresetPage : Page
+public partial class MouseClickPresetPage : Page
 {
-    private readonly LeftClickPreset _preset;
+    private readonly MouseClickPreset _preset;
 
-    public LeftClickPresetPage(LeftClickPreset preset)
+    public MouseClickPresetPage(MouseClickPreset preset)
     {
         InitializeComponent();
         _preset = preset;

@@ -2,9 +2,9 @@ using System.Windows.Controls;
 
 namespace MinecraftAuto.Presets;
 
-public partial class LeftClickPresetControl : UserControl
+public partial class MouseClickPresetControl : UserControl
 {
-    public LeftClickPresetControl(AutoClickerPresetBase preset)
+    public MouseClickPresetControl(AutoClickerPresetBase preset)
     {
         InitializeComponent();
         DataContext = preset;

@@ -5,7 +5,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.Extensions.Logging;
-using MinecraftAuto;
 using MinecraftAuto.Presets;
 
 namespace MinecraftAuto;
@@ -19,13 +18,25 @@ public partial class PresetSelectionPage : Page
 
     private readonly ILogger _logger;
 
-    public PresetSelectionPage(Action onUnbind, string windowTitle, uint pid)
+    private CancellationTokenSource? _cancellationTokenSource;
+
+    private IntPtr targetWindowHandle;
+
+    public PresetSelectionPage(Action onUnbind, string windowTitle, uint pid, IntPtr windowHandle)
     {
         InitializeComponent();
         _logger = App.Logger;
         _onUnbind = onUnbind;
+        targetWindowHandle = windowHandle;
 
-        PresetComboBox.ItemsSource = AutoClickerPresets.All;
+
+        MouseClickPreset mouseClickPreset = new(windowHandle);
+
+        PresetComboBox.ItemsSource = new List<AutoClickerPresetBase>
+        {
+            mouseClickPreset
+        };
+
         PresetComboBox.SelectedIndex = 0;
 
         BoundMessageTextBlock.Text = $"Bound to window: {windowTitle} (PID: {pid})";
@@ -72,12 +83,8 @@ public partial class PresetSelectionPage : Page
         var selected = PresetComboBox.SelectedItem;
         if (selected is AutoClickerPresetBase preset)
         {
-            if (preset.Name.Contains("Left", StringComparison.OrdinalIgnoreCase))
-                PresetSettingsHost.Content = new LeftClickPresetControl(preset);
-            else if (preset.Name.Contains("Right", StringComparison.OrdinalIgnoreCase))
-                PresetSettingsHost.Content = new RightClickPresetControl(preset);
-            else
-                PresetSettingsHost.Content = new BothClickPresetControl(preset);
+            if (preset.Name.Contains("Mouse Clicks", StringComparison.OrdinalIgnoreCase))
+                PresetSettingsHost.Content = new MouseClickPresetControl(preset);
         }
         else
         {
@@ -99,7 +106,34 @@ public partial class PresetSelectionPage : Page
         _isAutoRunning = true;
         StartStopButton.Content = "Stop";
         _logger.LogInformation("Auto-clicker started.");
-        // TODO: Start auto-clicker logic here
+
+
+        // Start!!
+        if (_cancellationTokenSource is not null)
+        {
+            _cancellationTokenSource.Cancel();
+            _cancellationTokenSource.Dispose();
+            _cancellationTokenSource = null;
+        }
+        _cancellationTokenSource = new CancellationTokenSource();
+
+        var selected = PresetComboBox.SelectedItem as AutoClickerPresetBase;
+
+        Task.Run(async () =>
+        {
+            while (_cancellationTokenSource is not null && !_cancellationTokenSource.Token.IsCancellationRequested)
+            {
+                try
+                {
+                    selected.Sequence();
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Error during auto-clicking sequence.");
+                    StopAuto();
+                }
+            }
+        });
     }
 
     public void StopAuto()
@@ -108,7 +142,15 @@ public partial class PresetSelectionPage : Page
         _isAutoRunning = false;
         StartStopButton.Content = "Start";
         _logger.LogInformation("Auto-clicker stopped.");
-        // TODO: Stop auto-clicker logic here
+
+
+        // Stop!!
+        if (_cancellationTokenSource is not null)
+        {
+            _cancellationTokenSource.Cancel();
+            _cancellationTokenSource.Dispose();
+            _cancellationTokenSource = null;
+        }
     }
 
     private void Unbind_Click(object sender, RoutedEventArgs e)
