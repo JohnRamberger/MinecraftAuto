@@ -72,5 +72,6 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            ./publish/MinecraftAuto-x64.exe
-            ./publish/MinecraftAuto-x86.exe
+            ./publish/win-x64/MinecraftAuto-x64.exe
+            ./publish/win-x86/MinecraftAuto-x86.exe
+
