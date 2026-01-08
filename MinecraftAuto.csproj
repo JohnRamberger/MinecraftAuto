@@ -18,6 +18,9 @@
 
     <!-- DO NOT trim WPF apps -->
     <PublishTrimmed>false</PublishTrimmed>
+
+    <!-- Set the application icon -->
+    <ApplicationIcon>Assets\MinecraftAuto.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
