@@ -38,8 +38,8 @@ jobs:
       - name: Publish
         run: dotnet publish \
             --configuration Release \
-            --no-build \
             -r win-x64 \
+            --no-build \
             --output ./publish \
             -p:PublishSingleFile=true \
             -p:SelfContained=true \
