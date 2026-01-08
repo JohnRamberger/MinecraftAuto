@@ -55,3 +55,8 @@ jobs:
         with:
           name: dotnet-app
           path: ./publish
+
+      - name: Create GitHub Release and Upload Artifacts
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ./publish/**
