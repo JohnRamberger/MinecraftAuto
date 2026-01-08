@@ -48,5 +48,10 @@ public class MouseClickPreset : AutoClickerPresetBase
         // Wait for Delay2
         await Task.Delay((int)Delay2).ConfigureAwait(false);
     }
+
+    public override void Reset()
+    {
+
+    }
 }
 

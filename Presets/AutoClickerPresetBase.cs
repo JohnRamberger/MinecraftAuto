@@ -19,6 +19,9 @@ public abstract class AutoClickerPresetBase
     }
 
     public abstract void ApplySettings();
+    public abstract void Reset();
+
+
     public override string ToString() => Name;
 
     public abstract void Sequence();

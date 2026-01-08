@@ -31,9 +31,11 @@ public partial class PresetSelectionPage : Page
 
 
         MouseClickPreset mouseClickPreset = new(windowHandle);
+        ConcretePreset concretePreset = new(windowHandle);
 
         PresetComboBox.ItemsSource = new List<AutoClickerPresetBase>
         {
+            concretePreset,
             mouseClickPreset
         };
 
@@ -85,6 +87,10 @@ public partial class PresetSelectionPage : Page
         {
             if (preset.Name.Contains("Mouse Clicks", StringComparison.OrdinalIgnoreCase))
                 PresetSettingsHost.Content = new MouseClickPresetControl(preset);
+            else if (preset.Name.Contains("Concrete", StringComparison.OrdinalIgnoreCase))
+                PresetSettingsHost.Content = new ConcretePresetControl(preset);
+            else
+                PresetSettingsHost.Content = null;
         }
         else
         {
@@ -125,7 +131,7 @@ public partial class PresetSelectionPage : Page
             {
                 try
                 {
-                    selected.Sequence();
+                    selected?.Sequence();
                 }
                 catch (Exception ex)
                 {
@@ -151,6 +157,9 @@ public partial class PresetSelectionPage : Page
             _cancellationTokenSource.Dispose();
             _cancellationTokenSource = null;
         }
+
+        var selected = PresetComboBox.SelectedItem as AutoClickerPresetBase;
+        selected?.Reset();
     }
 
     private void Unbind_Click(object sender, RoutedEventArgs e)
