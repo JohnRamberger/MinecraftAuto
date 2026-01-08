@@ -27,7 +27,9 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore -r win-x64
+        run: |
+          dotnet restore -r win-x64
+          dotnet restore -r win-x86
 
       - name: Build
         run: dotnet build --configuration Release --no-restore
@@ -35,15 +37,24 @@ jobs:
       - name: Test
         run: dotnet test --configuration Release --no-build --verbosity normal
 
-      - name: Publish
-        run: dotnet publish --configuration Release -r win-x64 --self-contained true --output ./publish -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:EnableCompressionInSingleFile=true
+      - name: Publish x64
+        run: dotnet publish --configuration Release -r win-x64 --output ./publish/win-x64
 
+      - name: Publish x86
+        run: dotnet publish --configuration Release -r win-x86 --output ./publish/win-x86
+
+      - name: Rename EXEs for clarity
+        run: |
+          Rename-Item ./publish/win-x64/*.exe MinecraftAuto-x64.exe
+          Rename-Item ./publish/win-x86/*.exe MinecraftAuto-x86.exe
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: dotnet-app
-          path: ./publish
+          path: |
+            ./publish/win-x64/MinecraftAuto-x64.exe
+            ./publish/win-x86/MinecraftAuto-x86.exe
 
   release:
     if: startsWith(github.ref, 'refs/tags/')
@@ -57,7 +68,9 @@ jobs:
           name: dotnet-app
           path: ./publish
 
-      - name: Create GitHub Release and Upload Artifacts
+      - name: Create GitHub Release and Upload EXEs
         uses: softprops/action-gh-release@v2
         with:
-          files: ./publish/**
+          files: |
+            ./publish/MinecraftAuto-x64.exe
+            ./publish/MinecraftAuto-x86.exe
