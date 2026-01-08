@@ -36,15 +36,7 @@ jobs:
         run: dotnet test --configuration Release --no-build --verbosity normal
 
       - name: Publish
-        run: dotnet publish \
-            --configuration Release \
-            -r win-x64 \
-            --no-build \
-            --output ./publish \
-            -p:PublishSingleFile=true \
-            -p:SelfContained=true \
-            -p:PublishTrimmed=true \
-            -p:IncludeAllContentForSelfExtract=false
+        run: dotnet publish --configuration Release -r win-x64 --no-build --output ./publish -p:PublishSingleFile=true -p:SelfContained=true -p:PublishTrimmed=true -p:IncludeAllContentForSelfExtract=false
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
